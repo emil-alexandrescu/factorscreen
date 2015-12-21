@@ -2,7 +2,7 @@ body {
   font-family: Arial !important;
 }
 .search-panel {
-	width:800px;
+	max-width:800px;
 	height:auto;
 }
 
@@ -145,13 +145,13 @@ body {
 }
 
 
-.ng-multiselect-container .item { 
+.ng-multiselect-container .item {
   background:#fff;
-  color:#000; 
-} 
-.ng-multiselect-container .item:hover { 
+  color:#000;
+}
+.ng-multiselect-container .item:hover {
   background:rgb(56, 121, 217);
-  color:#fff; 
+  color:#fff;
 }
 
 
