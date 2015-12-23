@@ -164,10 +164,16 @@ span.sort-indicator:before,
 span.sort-indicator:after {
   display:none;
 }
-
+th{
+    text-align: center;
+}
 th.header.sort-asc span.sort-indicator:before,
 th.header.sort-asc span.sort-indicator:after,
 th.header.sort-desc span.sort-indicator:before,
 th.header.sort-desc span.sort-indicator:after {
   display:block;
+}
+
+.mb10{
+    margin-bottom: 10px;
 }

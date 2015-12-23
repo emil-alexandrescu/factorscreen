@@ -13,27 +13,27 @@ stockapp.controller('stockdataController', ['$scope', '$http', '$q', 'ngTablePar
 		$scope.filterOptions = {};
 		$scope.filterAttributes = {
 			'market_cap': { field: 'market_cap', title: 'Market cap', is_weight: false, step: 1, decimal: 0},
-			'z_score_rank': { field: 'z_score_rank', title: 'Z-score rank', is_weight: true, step: 0.01, decimal: 5},			
+			'z_score_rank': { field: 'z_score_rank', title: 'Z-score rank', is_weight: true, step: 0.01, decimal: 5},
 			'm_score_rank': { field: 'm_score_rank', title: 'M-score rank', is_weight: true, step: 0.01, decimal: 5},
-			'f_score_rank': { field: 'f_score_rank', title: 'F-score rank', is_weight: true, step: 0.01, decimal: 5},			
+			'f_score_rank': { field: 'f_score_rank', title: 'F-score rank', is_weight: true, step: 0.01, decimal: 5},
 			'pe_ratio_rank': { field: 'pe_ratio_rank', title: 'PE-ratio rank', is_weight: true, step: 0.01, decimal: 5},
-			'forward_pe_rank': { field: 'forward_pe_rank', title: 'Forward PE rank', is_weight: true, step: 0.01, decimal: 5},			
+			'forward_pe_rank': { field: 'forward_pe_rank', title: 'Forward PE rank', is_weight: true, step: 0.01, decimal: 5},
 			'forward_growth_rank': { field: 'forward_growth_rank', title: 'Forward growth rank', is_weight: true, step: 0.01, decimal: 5},
-			'pb_ratio_rank': { field: 'pb_ratio_rank', title: 'PB-ratio rank', is_weight: true, step: 0.01, decimal: 5},			
+			'pb_ratio_rank': { field: 'pb_ratio_rank', title: 'PB-ratio rank', is_weight: true, step: 0.01, decimal: 5},
 			'asset_growth_rank': { field: 'asset_growth_rank', title: 'Asset growth rank', is_weight: true, step: 0.01, decimal: 5},
-			'ret_1y_rank': { field: 'ret_1y_rank', title: 'Ret 1-year rank', is_weight: true, step: 0.01, decimal: 5},			
+			'ret_1y_rank': { field: 'ret_1y_rank', title: 'Ret 1-year rank', is_weight: true, step: 0.01, decimal: 5},
 			'off_max_15_rank': { field: 'off_max_15_rank', title: 'Off max 15 rank', is_weight: true, step: 0.01, decimal: 5},
-			'roe_rank': { field: 'roe_rank', title: 'ROE rank rank', is_weight: true, step: 0.01, decimal: 5},			
+			'roe_rank': { field: 'roe_rank', title: 'ROE rank rank', is_weight: true, step: 0.01, decimal: 5},
 			'basic_nri_pct_diff_rank': { field: 'basic_nri_pct_diff_rank', title: 'Basic NRI-PCT diff rank', is_weight: true, step: 0.01, decimal: 5},
-			'eps_rsd_rank': { field: 'eps_rsd_rank', title: 'EPS RDS rank', is_weight: true, step: 0.01, decimal: 5},			
+			'eps_rsd_rank': { field: 'eps_rsd_rank', title: 'EPS RDS rank', is_weight: true, step: 0.01, decimal: 5},
 			'eps_gr_rank': { field: 'eps_gr_rank', title: 'EPS GR rank', is_weight: true, step: 0.01, decimal: 5},
-			'ss_demand_rank': { field: 'ss_demand_rank', title: 'SS demand rank', is_weight: true, step: 0.01, decimal: 5},			
+			'ss_demand_rank': { field: 'ss_demand_rank', title: 'SS demand rank', is_weight: true, step: 0.01, decimal: 5},
 			'ss_util_rank': { field: 'ss_util_rank', title: 'SS util rank', is_weight: true, step: 0.01, decimal: 5},
-			'accruals_rank': { field: 'accruals_rank', title: 'Accruals rank', is_weight: true, step: 0.01, decimal: 5},			
+			'accruals_rank': { field: 'accruals_rank', title: 'Accruals rank', is_weight: true, step: 0.01, decimal: 5},
 			'roa_rank': { field: 'roa_rank', title: 'ROA rank', is_weight: true, step: 0.01, decimal: 5},
-			'issuance_rank': { field: 'issuance_rank', title: 'Issuance rank', is_weight: true, step: 0.01, decimal: 5},			
+			'issuance_rank': { field: 'issuance_rank', title: 'Issuance rank', is_weight: true, step: 0.01, decimal: 5},
 			'noa_rank': { field: 'noa_rank', title: 'NOA rank', is_weight: true, step: 0.01, decimal: 5},
-			'profitability_rank': { field: 'profitability_rank', title: 'Profitability rank', is_weight: true, step: 0.01, decimal: 5},			
+			'profitability_rank': { field: 'profitability_rank', title: 'Profitability rank', is_weight: true, step: 0.01, decimal: 5},
 			'beta_rank': { field: 'beta_rank', title: 'Beta rank', is_weight: true, step: 0.01, decimal: 5}
 		};
 		$scope.filterAttributesToShow = _.filter($scope.filterAttributes, function(field) { return field.field != "market_cap"; });
@@ -384,7 +384,7 @@ stockapp.directive('chartSlider', function($document) {
 				//drag event
 
 				var handlers = $elem.find('.chart-slider-handler');
-				handlers.on('mousedown', function($evt) {
+				handlers.on('mousedown touchstart', function($evt) {
 					if($elem.find(".chart-slider-dragging").length > 0) return;
 
 					var target = angular.element(this);
@@ -396,7 +396,13 @@ stockapp.directive('chartSlider', function($document) {
 						return Math.round(val * k) / k;
 					};
 					var slider_process = function($evt) {
-						var x = $evt.pageX - $elem.offset().left;
+                        var x;
+                        if ($evt.pageX) {
+                            x = $evt.pageX - $elem.offset().left;
+                        }else {
+                            x = $evt.originalEvent.changedTouches[0].pageX - $elem.offset().left;
+                        }
+
 						x = roundVal(x / 2 * interval + $scope.min);
 
 						if(x < $scope.min) x = $scope.min;
@@ -413,7 +419,7 @@ stockapp.directive('chartSlider', function($document) {
 								$scope.modelMax = x;
 							}
 						});
-						
+
 
 						updateScrollHandler();
 					};
@@ -422,20 +428,20 @@ stockapp.directive('chartSlider', function($document) {
 					};
 
 					var onMouseUp = function($evt) {
-						$document.off("mousemove", onMouseMove);
-						$document.off("mouseup", onMouseUp);
+						$document.off("mousemove touchmove", onMouseMove);
+						$document.off("mouseup touchcancel", onMouseUp);
 						target.removeClass('chart-slider-dragging');
 					}
-					$document.on("mousemove", onMouseMove);
-					$document.on('mouseup', onMouseUp);
+					$document.on("mousemove touchmove", onMouseMove);
+					$document.on('mouseup touchend', onMouseUp);
 				});
 			}
 
 			$divMin.css('left', (($scope.modelMin - $scope.min)/interval * 2 - $divMin.width() / 2) + 'px');
 			$divMax.css('left', (($scope.modelMax - $scope.min)/interval * 2 - $divMax.width() / 2) + 'px');
 		};
-		
-		
+
+
 		// _.each(['min', 'max', 'modelMax', 'modelMin'], function(param) {
 
 		// 	console.log($scope.min + '~' + $scope.max + ',' + $scope.modelMin + '~' + $scope.modelMax);

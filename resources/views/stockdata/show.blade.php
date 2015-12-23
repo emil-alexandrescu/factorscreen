@@ -27,24 +27,27 @@ var tableRows = {{ $tableRowsCount == null ? 25 : $tableRowsCount }};
 			</div>
 		</div>
 
-		<div class="row" ng-if="filterUI.advanced.length > 0" style="border-bottom:1px solid #eee;">
-			<div class="col-md-2">field</div>
-			<div class="col-md-2">min</div>
-			<div class="col-md-4"></div>
-			<div class="col-md-2">max</div>
-			<div class="col-md-1">weight</div>
-			<div class="col-md-1">
+		<div class="row hidden-xs" ng-if="filterUI.advanced.length > 0" style="border-bottom:1px solid #eee;">
+			<div class="col-sm-2">field</div>
+			<div class="col-sm-2">min</div>
+			<div class="col-sm-4"></div>
+			<div class="col-sm-2">max</div>
+			<div class="col-sm-1">weight</div>
+			<div class="col-sm-1">
 			</div>
 		</div>
 		<div class="row" ng-repeat="(index, criteria) in filterUI.advanced">
-			<div class="col-md-2"><% filterAttributes[criteria.field].title %></div>
-			<div class="col-md-2"><input type="number" ng-model="criteria.min" /></div>
-			<div class="col-md-4">
-				<chart-slider model-min="criteria.min" model-max="criteria.max" data="filterOptions[criteria.field].values" min="filterOptions[criteria.field].min" max="filterOptions[criteria.field].max" decimal="<% filterAttributes[criteria.field].decimal %>" width="235" height="25"></chart-slider>
+			<div class="col-sm-2 col-xs-12 mb10 visible-xs"><% filterAttributes[criteria.field].title %> <button class="btn btn-sm btn-danger" ng-click="onRemoveCriteria(index)">
+                <i class="fa fa-trash-o"></i>
+            </button></div>
+            <div class="col-sm-2 col-xs-12 mb10 hidden-xs"><% filterAttributes[criteria.field].title %></div>
+			<div class="col-sm-2 col-xs-2 mb10"><input type="number" ng-model="criteria.min" /></div>
+			<div class="col-sm-4 col-xs-6 mb10">
+				<chart-slider model-min="criteria.min" model-max="criteria.max" data="filterOptions[criteria.field].values" min="filterOptions[criteria.field].min" max="filterOptions[criteria.field].max" decimal="<% filterAttributes[criteria.field].decimal %>" width="200" height="25"></chart-slider>
 			</div>
-			<div class="col-md-2"><input type="number" ng-model="criteria.max" /></div>
-			<div class="col-md-1"><input type="number" ng-model="criteria.weight" ng-if="filterAttributes[criteria.field].is_weight"/></div>
-			<div class="col-md-1">
+			<div class="col-sm-2 col-xs-2 mb10"><input type="number" ng-model="criteria.max" /></div>
+			<div class="col-sm-1 col-xs-2 mb10" ng-if="filterAttributes[criteria.field].is_weight"><input type="number" ng-model="criteria.weight" /></div>
+			<div class="col-sm-1 mb10 hidden-xs">
 				<button class="btn btn-sm btn-danger" ng-click="onRemoveCriteria(index)">
 					<i class="fa fa-trash-o"></i>
 				</button>
@@ -77,7 +80,7 @@ var tableRows = {{ $tableRowsCount == null ? 25 : $tableRowsCount }};
 		</div>
 	</div>
 	</center>
-    <div class="adv-table" style="margin:10px;">
+    <div class="adv-table" style="margin:10px; overflow-y: auto;">
 		<div class="loading" ng-show="isLoading"><div class="loader">Loading...</div></div>
         <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info" ng-table="tableParams">
             <!-- <thead>
