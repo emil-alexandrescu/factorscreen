@@ -13,6 +13,20 @@ var tableRows = {{ $tableRowsCount == null ? 25 : $tableRowsCount }};
 	<center>
 	<div class="white-panel search-panel pn">
 		<div class="white-header" style="margin-bottom:0px;">
+			<h5>Distribution</h5>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<select class="form-control" ng-model="distribution">
+					<option selected value="value">Value</option>
+					<option value="rank-country">Rank-Country</option>
+					<option value="rank-industry">Rank-Industry</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="white-panel search-panel pn">
+		<div class="white-header" style="margin-bottom:0px;">
 			<h5>Filter options</h5>
 		</div>
 		<div class="row">

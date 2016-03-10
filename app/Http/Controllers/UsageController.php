@@ -47,8 +47,8 @@ class UsageController extends Controller {
         if(!empty($start)) $usages = $usages->where('created_at', '>=', $start);
         if(!empty($end)) $usages = $usages->where('created_at', '<=', $end);
 
-       	$usages = $usages->groupBy('user_id')
-       					->get();
+        $usages = $usages->groupBy('user_id')
+        				->get();
 
 		return view('usage.index')
 					->with('title', 'Usages')

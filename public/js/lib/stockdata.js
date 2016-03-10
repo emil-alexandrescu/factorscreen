@@ -9,32 +9,33 @@ stockapp.controller('stockdataController', ['$scope', '$http', '$q', 'ngTablePar
 	function stockdataController($scope, $http, $q, ngTableParams, $modal, $filter) {
 
 		$scope.data = [];
+		$scope.distribution = 'value';
 		$scope.new_criteria = '';
 		$scope.filterOptions = {};
 		$scope.filterAttributes = {
 			'market_cap': { field: 'market_cap', title: 'Market cap', is_weight: false, step: 1, decimal: 0},
-			'z_score_rank': { field: 'z_score_rank', title: 'Z-score rank', is_weight: true, step: 0.01, decimal: 5},
-			'm_score_rank': { field: 'm_score_rank', title: 'M-score rank', is_weight: true, step: 0.01, decimal: 5},
-			'f_score_rank': { field: 'f_score_rank', title: 'F-score rank', is_weight: true, step: 0.01, decimal: 5},
-			'pe_ratio_rank': { field: 'pe_ratio_rank', title: 'PE-ratio rank', is_weight: true, step: 0.01, decimal: 5},
-			'forward_pe_rank': { field: 'forward_pe_rank', title: 'Forward PE rank', is_weight: true, step: 0.01, decimal: 5},
-			'forward_growth_rank': { field: 'forward_growth_rank', title: 'Forward growth rank', is_weight: true, step: 0.01, decimal: 5},
-			'pb_ratio_rank': { field: 'pb_ratio_rank', title: 'PB-ratio rank', is_weight: true, step: 0.01, decimal: 5},
-			'asset_growth_rank': { field: 'asset_growth_rank', title: 'Asset growth rank', is_weight: true, step: 0.01, decimal: 5},
-			'ret_1y_rank': { field: 'ret_1y_rank', title: 'Ret 1-year rank', is_weight: true, step: 0.01, decimal: 5},
-			'off_max_15_rank': { field: 'off_max_15_rank', title: 'Off max 15 rank', is_weight: true, step: 0.01, decimal: 5},
-			'roe_rank': { field: 'roe_rank', title: 'ROE rank rank', is_weight: true, step: 0.01, decimal: 5},
-			'basic_nri_pct_diff_rank': { field: 'basic_nri_pct_diff_rank', title: 'Basic NRI-PCT diff rank', is_weight: true, step: 0.01, decimal: 5},
-			'eps_rsd_rank': { field: 'eps_rsd_rank', title: 'EPS RDS rank', is_weight: true, step: 0.01, decimal: 5},
-			'eps_gr_rank': { field: 'eps_gr_rank', title: 'EPS GR rank', is_weight: true, step: 0.01, decimal: 5},
-			'ss_demand_rank': { field: 'ss_demand_rank', title: 'SS demand rank', is_weight: true, step: 0.01, decimal: 5},
-			'ss_util_rank': { field: 'ss_util_rank', title: 'SS util rank', is_weight: true, step: 0.01, decimal: 5},
-			'accruals_rank': { field: 'accruals_rank', title: 'Accruals rank', is_weight: true, step: 0.01, decimal: 5},
-			'roa_rank': { field: 'roa_rank', title: 'ROA rank', is_weight: true, step: 0.01, decimal: 5},
-			'issuance_rank': { field: 'issuance_rank', title: 'Issuance rank', is_weight: true, step: 0.01, decimal: 5},
-			'noa_rank': { field: 'noa_rank', title: 'NOA rank', is_weight: true, step: 0.01, decimal: 5},
-			'profitability_rank': { field: 'profitability_rank', title: 'Profitability rank', is_weight: true, step: 0.01, decimal: 5},
-			'beta_rank': { field: 'beta_rank', title: 'Beta rank', is_weight: true, step: 0.01, decimal: 5}
+			'z_score': { field: 'z_score', title: 'Z-score', is_weight: true, step: 0.01, decimal: 5},
+			'm_score': { field: 'm_score', title: 'M-score', is_weight: true, step: 0.01, decimal: 5},
+			'f_score': { field: 'f_score', title: 'F-score', is_weight: true, step: 0.01, decimal: 5},
+			'pe_ratio': { field: 'pe_ratio', title: 'PE-ratio', is_weight: true, step: 0.01, decimal: 5},
+			'forward_pe': { field: 'forward_pe', title: 'Forward PE', is_weight: true, step: 0.01, decimal: 5},
+			'forward_growth': { field: 'forward_growth', title: 'Forward growth', is_weight: true, step: 0.01, decimal: 5},
+			'pb_ratio': { field: 'pb_ratio', title: 'PB-ratio', is_weight: true, step: 0.01, decimal: 5},
+			'asset_growth': { field: 'asset_growth', title: 'Asset growth', is_weight: true, step: 0.01, decimal: 5},
+			'ret_1y': { field: 'ret_1y', title: 'Ret 1-year', is_weight: true, step: 0.01, decimal: 5},
+			'off_max_15': { field: 'off_max_15', title: 'Off max 15', is_weight: true, step: 0.01, decimal: 5},
+			'roe': { field: 'roe', title: 'ROE', is_weight: true, step: 0.01, decimal: 5},
+			'basic_nri_pct_diff': { field: 'basic_nri_pct_diff', title: 'Basic NRI-PCT diff', is_weight: true, step: 0.01, decimal: 5},
+			'eps_rsd': { field: 'eps_rsd', title: 'EPS RDS', is_weight: true, step: 0.01, decimal: 5},
+			'eps_gr': { field: 'eps_gr', title: 'EPS GR', is_weight: true, step: 0.01, decimal: 5},
+			'ss_demand': { field: 'ss_demand', title: 'SS demand', is_weight: true, step: 0.01, decimal: 5},
+			'ss_util': { field: 'ss_util', title: 'SS util', is_weight: true, step: 0.01, decimal: 5},
+			'accruals': { field: 'accruals', title: 'Accruals', is_weight: true, step: 0.01, decimal: 5},
+			'roa': { field: 'roa', title: 'ROA', is_weight: true, step: 0.01, decimal: 5},
+			'issuance': { field: 'issuance', title: 'Issuance', is_weight: true, step: 0.01, decimal: 5},
+			'noa': { field: 'noa', title: 'NOA', is_weight: true, step: 0.01, decimal: 5},
+			'profitability': { field: 'profitability', title: 'Profitability', is_weight: true, step: 0.01, decimal: 5},
+			'beta': { field: 'beta', title: 'Beta', is_weight: true, step: 0.01, decimal: 5}
 		};
 		$scope.filterAttributesToShow = _.filter($scope.filterAttributes, function(field) { return field.field != "market_cap"; });
 		$scope.filterUI = {
@@ -53,6 +54,40 @@ stockapp.controller('stockdataController', ['$scope', '$http', '$q', 'ngTablePar
 		$scope.isLoading = false;
 		$scope.dynamicColumnsVisibility = [];
 
+		$scope.$watch('distribution', function(nv) {
+			if (nv && $scope.allData) {
+				$scope.data = $scope.allData[$scope.distribution];
+				filterData();
+			}
+		});
+
+		function makeRank(data, rankField) {
+			var result = {};
+			var fields = _.pluck($scope.filterAttributesToShow, 'field');
+			_.each(data, function(row) {
+				result[row.id] = _.clone(row);
+			});
+			var groupedTmp = _.groupBy(data, rankField);
+
+			_.each(fields, function(field) {
+				var tmp = _.map(groupedTmp, function(insideArr){
+					return _.sortBy(insideArr, field)
+				});
+
+				_.each(tmp, function(tmp2) {
+					var count = tmp2.length;
+					_.each(tmp2, function(row, index) {
+						result[row.id][field] = (1 / count * index).toFixed(2) * 1;
+					});
+				});
+			});
+			return _.chain(result)
+				.map(function(r){
+					return r;
+				})
+				.sortBy('id')
+				.value();
+		}
 
 		var init = function() {
 
@@ -95,11 +130,14 @@ stockapp.controller('stockdataController', ['$scope', '$http', '$q', 'ngTablePar
 		var loadData = function() {
 			$http.get('/stockdata/' + stockID + '/json').
 				success(function(data, status, headers, config) {
-
-					$scope.data = data;
-
+					$scope.allData = {
+						value: data,
+						'rank-country': makeRank(data, 'country'),
+						'rank-industry': makeRank(data, 'industry')
+					};
+					console.log($scope.allData);
+					$scope.data = $scope.allData.value;
 					filterData();
-
 				}).
 				error(function(data, status, headers, config) {
 					$scope.qLoading.resolve(true);
@@ -200,7 +238,7 @@ stockapp.controller('stockdataController', ['$scope', '$http', '$q', 'ngTablePar
 				if(!attr.is_weight) return;
 				var filter = _.findWhere($scope.filter.advanced, {field: field});
 
-				if(typeof filter == "undefined") {
+				if(_.isUndefined(filter)) {
 
 				}
 				else {

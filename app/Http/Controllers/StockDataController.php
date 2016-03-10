@@ -92,28 +92,28 @@ class StockDataController extends Controller {
 					$stockdata_row->country = trim(str_replace('(', '', str_replace(')', '', $tmp[1])));
 					$stockdata_row->industry = $columns[4];
 					$stockdata_row->market_cap = $columns[5];
-					$stockdata_row->z_score_rank = $columns[6];
-					$stockdata_row->m_score_rank = $columns[7];
-					$stockdata_row->f_score_rank = $columns[8];
-					$stockdata_row->pe_ratio_rank = $columns[9];
-					$stockdata_row->forward_pe_rank = $columns[10];
-					$stockdata_row->forward_growth_rank = $columns[11];
-					$stockdata_row->pb_ratio_rank = $columns[12];
-					$stockdata_row->asset_growth_rank = $columns[13];
-					$stockdata_row->ret_1y_rank = $columns[14];
-					$stockdata_row->off_max_15_rank = $columns[15];
-					$stockdata_row->roe_rank = $columns[16];
-					$stockdata_row->basic_nri_pct_diff_rank = $columns[17];
-					$stockdata_row->eps_rsd_rank = $columns[18];
-					$stockdata_row->eps_gr_rank = $columns[19];
-					$stockdata_row->ss_demand_rank = $columns[20];
-					$stockdata_row->ss_util_rank = $columns[21];
-					$stockdata_row->accruals_rank = $columns[22];
-					$stockdata_row->roa_rank = $columns[23];
-					$stockdata_row->issuance_rank = $columns[24];
-					$stockdata_row->noa_rank = $columns[25];
-					$stockdata_row->profitability_rank = $columns[26];
-					$stockdata_row->beta_rank = $columns[27];
+					$stockdata_row->z_score = $columns[6];
+					$stockdata_row->m_score = $columns[7];
+					$stockdata_row->f_score = $columns[8];
+					$stockdata_row->pe_ratio = $columns[9];
+					$stockdata_row->forward_pe = $columns[10];
+					$stockdata_row->forward_growth = $columns[11];
+					$stockdata_row->pb_ratio = $columns[12];
+					$stockdata_row->asset_growth = $columns[13];
+					$stockdata_row->ret_1y = $columns[14];
+					$stockdata_row->off_max_15 = $columns[15];
+					$stockdata_row->roe = $columns[16];
+					$stockdata_row->basic_nri_pct_diff = $columns[17];
+					$stockdata_row->eps_rsd = $columns[18];
+					$stockdata_row->eps_gr = $columns[19];
+					$stockdata_row->ss_demand = $columns[20];
+					$stockdata_row->ss_util = $columns[21];
+					$stockdata_row->accruals = $columns[22];
+					$stockdata_row->roa = $columns[23];
+					$stockdata_row->issuance = $columns[24];
+					$stockdata_row->noa = $columns[25];
+					$stockdata_row->profitability = $columns[26];
+					$stockdata_row->beta = $columns[27];
 
 					$stockdata_row->save();
 				}
@@ -123,7 +123,7 @@ class StockDataController extends Controller {
 
 			$lexer->parse(base_path() . '/data/' . $filename, $interpreter);
 
-			
+
 			if($stockdata) {
 				$response['stockdata'] = $stockdata;
 				$response['message'] = $row . " rows inserted.";

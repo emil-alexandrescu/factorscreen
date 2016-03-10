@@ -2,7 +2,7 @@
 
 @section('content')
 <h3><i class="fa fa-user"></i> Usages</h3>
-<div class="content-panel">	
+<div class="content-panel">
 	<center>
 	<div class="white-panel search-panel pn" style="width:600px;">
 	<form method="get">
@@ -66,11 +66,13 @@
             </thead>
             <tbody>
             	@foreach($usages as $index => $usage)
+				@if ($user = App\User::find($usage->user_id))
 	            <tr>
 	            	<td>{{ $index+1 }}</td>
-	            	<td>{{ App\User::find($usage->user_id)->name }}</td>
+	            	<td>{{ $user->name }}</td>
 	            	<td>{{ $usage->usage }}</td>
 	            </tr>
+				@endif
 	            @endforeach
         </table>
         <div style="clear:both;"></div>
