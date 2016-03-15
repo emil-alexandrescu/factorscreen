@@ -18,10 +18,11 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('home', 'HomeController@index');
 
 	Route::get('settings', 'HomeController@settings');
-	
+
 	Route::post('settings', 'HomeController@saveSettings');
 
 	Route::get('stockdata', 'StockDataController@index');
+    Route::get('stockdata/list', 'StockDataController@listData');
 	Route::get('stockdata/create', 'StockDataController@create');
 	Route::post('stockdata/create', 'StockDataController@store');
 	Route::get('stockdata/remove/{id}', 'StockDataController@remove');
@@ -30,7 +31,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::post('preferences/{key}', 'PreferenceController@update');
 });
 
-Route::group(['middleware' => 'admin'], function() 
+Route::group(['middleware' => 'admin'], function()
 {
 	Route::resource('users', 'UserController');
 

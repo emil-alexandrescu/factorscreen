@@ -43,6 +43,11 @@ class StockDataController extends Controller {
 					->with('stockdata', StockData::get());
 	}
 
+    public function listData() {
+		echo json_encode(StockData::get());
+		exit();
+    }
+
 	public function create() {
 		return view('stockdata.create')
 					->with('title', 'Upload new Stock Data');
