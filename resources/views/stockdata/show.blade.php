@@ -12,7 +12,7 @@ var tableRows = {{ $tableRowsCount == null ? 25 : $tableRowsCount }};
 <div class="content-panel" ng-app="stockdataApp" ng-controller="stockdataController">
     <center>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-lg-6">
             <div class="white-panel search-panel pn">
                 <div class="white-header" style="margin-bottom:0px;">
                     <h5>Data File</h5>
@@ -39,10 +39,38 @@ var tableRows = {{ $tableRowsCount == null ? 25 : $tableRowsCount }};
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-lg-6">
             <div class="white-panel search-panel pn">
                 <div class="white-header" style="margin-bottom:0px;">
                     <h5>Filter options</h5>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <select class="form-control" ng-model="currentFilter" ng-options="userfilter as userfilter.title for userfilter in filterList" ng-change="changeFilter()"></select>
+                    </div>
+                </div>
+                <div class="row" style="border-bottom:1px solid #eee;" ng-hide="currentFilter">
+                    <div class="col-xs-8">
+                        <input class="form-control" ng-model="newFilterTitle">
+                    </div>
+                    <div class="col-xs-4">
+                        <button class="btn btn-primary pull-left" style="margin-right:10px;" ng-disabled="!newFilterTitle" ng-click="createFilter()" >
+                            <i class="fa fa-plus"></i> Save
+                        </button>
+                    </div>
+                </div>
+                <div class="row" style="border-bottom:1px solid #eee;" ng-show="currentFilter">
+                    <div class="col-xs-12">
+                        <button class="btn btn-primary pull-left" style="margin-right:10px;" ng-click="refreshFilter()">
+                            <i class="fa fa-plus"></i> Create New
+                        </button>
+                        <button class="btn btn-primary pull-left" style="margin-right:10px;" ng-click="updateFilter()">
+                            <i class="fa fa-plus"></i> Update
+                        </button>
+                        <button class="btn btn-danger pull-left" style="margin-right:10px;" ng-click="deleteFilter()">
+                            <i class="fa fa-trash-o"></i> Delete
+                        </button>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
@@ -97,13 +125,13 @@ var tableRows = {{ $tableRowsCount == null ? 25 : $tableRowsCount }};
                 <div class="row" ng-if="new_criteria == ''" style="border-top:1px solid #eee;">
                     <div class="col-md-12">
                         <button class="btn btn-primary pull-left" style="margin-right:10px;" ng-click="onAddNewCriteria()">
-                            <i class="fa fa-plus"></i>Add criteria
+                            <i class="fa fa-plus"></i> Add criteria
                         </button>
                         <button class="btn btn-danger pull-left" ng-click="onReset()">
-                            <i class="fa fa-times-circle"></i>Reset
+                            <i class="fa fa-times-circle"></i> Reset
                         </button>
                         <button class="btn btn-success pull-right" ng-show="true" ng-click="onApplyFilter()">
-                            <i class="fa fa-check-square"></i>Apply
+                            <i class="fa fa-check-square"></i> Apply
                         </button>
                     </div>
                 </div>
@@ -182,8 +210,8 @@ var tableRows = {{ $tableRowsCount == null ? 25 : $tableRowsCount }};
         </div>
         <div class="modal-body">
             <style>
-                ul { padding:0px;margin:0px; }
-                ul li { float:left; width:50%; line-height:30px; border-bottom:1px solid #ccc; }
+                .modal-body ul { padding:0px;margin:0px; }
+                .modal-body ul li { float:left; width:50%; line-height:30px; border-bottom:1px solid #ccc; }
             </style>
             <ul>
                 <li>

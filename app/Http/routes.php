@@ -29,6 +29,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('stockdata/{id}/{format?}', 'StockDataController@show');
 
 	Route::post('preferences/{key}', 'PreferenceController@update');
+    Route::resource('filters', 'FilterController');
 });
 
 Route::group(['middleware' => 'admin'], function()

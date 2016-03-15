@@ -8,6 +8,7 @@ var stockapp = angular.module('stockdataApp', ['ui.bootstrap', 'datatables', 'da
 stockapp.controller('stockdataController', ['$scope', '$http', '$q', 'ngTableParams', '$modal', '$filter', '$window',
     function stockdataController($scope, $http, $q, ngTableParams, $modal, $filter, $window) {
 
+        // Load data list
         $http.get('/stockdata/list')
         .success(function(data) {
             $scope.stockdata = data;
@@ -20,6 +21,64 @@ stockapp.controller('stockdataController', ['$scope', '$http', '$q', 'ngTablePar
                 loadData();
             }
         };
+
+        // load filter list
+        $scope.loadFilters = function() {
+            return $http.get('/filters')
+                .success(function(data) {
+                    $scope.filterList = data;
+                });
+        };
+        $scope.loadFilters();
+
+        $scope.changeFilter = function() {
+            if ($scope.currentFilter) {
+                // $scope.filterOptions = JSON.parse($scope.currentFilter.filterOptions);
+                $scope.filterUI = JSON.parse($scope.currentFilter.filterUI);
+                $scope.distribution = $scope.currentFilter.distribution;
+            }
+        };
+
+        $scope.refreshFilter = function() {
+            $scope.currentFilter = null;
+        }
+
+        $scope.createFilter = function() {
+            $http.post('/filters', {
+                // filterOptions: JSON.stringify($scope.filterOptions),
+                filterUI: JSON.stringify($scope.filterUI),
+                distribution: $scope.distribution,
+                title: $scope.newFilterTitle
+            }).success(function(data){
+                $scope.filterList.push(data);
+                $scope.currentFilter = data;
+                $scope.newFilterTitle = '';
+                $scope.changeFilter();
+            });
+        };
+
+        $scope.updateFilter = function() {
+            $http.put('/filters/' + $scope.currentFilter.id, {
+                // filterOptions: JSON.stringify($scope.filterOptions),
+                filterUI: JSON.stringify($scope.filterUI),
+                distribution: $scope.distribution,
+                title: $scope.currentFilter.title
+            }).success(function(data) {
+                var index = _.findIndex($scope.filterList, {id: $scope.currentFilter.id});
+                $scope.filterList[index] = data;
+                $scope.currentFilter = data;
+            });
+        };
+
+        $scope.deleteFilter = function() {
+            $http.delete('/filters/' + $scope.currentFilter.id)
+            .success(function(data){
+                var index = _.findIndex($scope.filterList, {id: $scope.currentFilter.id});
+                $scope.filterList.splice(index, 1);
+                $scope.newFilterTitle = '';
+                $scope.currentFilter = null;
+            });
+        }
 
         $scope.data = [];
         $scope.distribution = 'value';
