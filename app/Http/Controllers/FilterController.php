@@ -49,7 +49,7 @@ class FilterController extends Controller
         $filter = new Filter;
         $filter->title = $request->title;
         $filter->filterUI = $request->filterUI;
-        $filter->filterOptions = $request->filterOptions;
+        $filter->filterOptions = '';
         $filter->distribution = $request->distribution;
         $filter->user_id = $user->id;
         $filter->save();
@@ -72,7 +72,7 @@ class FilterController extends Controller
         ]);
         $filter->title = $request->title;
         $filter->filterUI = $request->filterUI;
-        $filter->filterOptions = $request->filterOptions;
+        $filter->filterOptions = '';
         $filter->distribution = $request->distribution;
         $filter->user_id = $user->id;
         $filter->save();
